@@ -1,0 +1,23 @@
+--Create a music store database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, composer TEXT, year INTEGER, price INTEGER);
+
+INSERT INTO store VALUES (1, "Lux", "Whitacre", 1998, 2.50);
+INSERT INTO store VALUES (2, "Lux2", "Enrique", 2004, 9.50);
+INSERT INTO store VALUES (3, "Lux3", "Smith", 2018, 12.50);
+INSERT INTO store VALUES (4, "Fur Elise", "Beethoven", 1788, 3.50);
+INSERT INTO store VALUES (5, "Fur Elise2", "Beethoven", 1258, 13.50);
+INSERT INTO store VALUES (6, "Fur Elise3", "Beethoven", 1908, 2.75);
+INSERT INTO store VALUES (7, "Requiem", "Mozart", 1842, 2.50);
+INSERT INTO store VALUES (8, "Requiem2", "Verdi", 1845, 4.55);
+INSERT INTO store VALUES (9, "Requiem3", "Ritter", 1992, 12.50);
+INSERT INTO store VALUES (10, "Fugue", "Bach", 1674, 7.40);
+INSERT INTO store VALUES (11, "Fugue2", "Brahms", 1649, 7.40);
+INSERT INTO store VALUES (12, "Fugue3", "Haydn", 1748, 7.40);
+INSERT INTO store VALUES (13, "Somebody Like You", "Adele", 2008, 5.50);
+INSERT INTO store VALUES (14, "I Believe", "Lopez", 2018, 5.68);
+INSERT INTO store VALUES (15, "Wicked", "Schwartz", 2009, 11.69);
+
+
+--Display name, composer, and price sorted by price
+SELECT name, composer, price FROM store ORDER BY price;
