@@ -1,0 +1,30 @@
+#In this SQL, I'm querying a database containing data about Netflix movies and TV shows and extracting specific data points for each specified question.
+
+/*How many movies are in the database? (Movies only, no TV shows)*/
+SELECT count(*)
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+    WHERE type = 'Movie';
+
+ /*When was the most recent batch of tv shows and/or movies added to the database?*/
+ SELECT MAX(DATE(date_added))
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+/*List all the movies and tv shows in alphabetical order.*/
+SELECT title AS "Movie or TV Show"
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+    ORDER BY title;
+
+/*Who was the Director for the movie Bright Star?*/
+SELECT titles.title AS "Movie", people.director AS "Director", titles.release_year AS "Year"
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+    LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+    ON titles.show_id = people.show_id
+    WHERE titles.title = 'Bright Star';
+
+/*What is the oldest movie in the database and what year was it made?*/
+SELECT title AS "Movie", release_year AS "Year"
+    FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+    WHERE type = 'Movie'
+    ORDER BY release_year
+    LIMIT 2;
+            /*This question had two answers since there were two films in the database made in 1942*/
