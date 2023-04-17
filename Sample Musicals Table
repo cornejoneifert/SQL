@@ -1,0 +1,78 @@
+/* Information pulled from each composer's Wikipedia page */
+CREATE TABLE composers
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    age INTEGER,
+    country TEXT);
+INSERT INTO composers (name, age, country)
+    VALUES ("Stephen Sondheim", 91, "USA");
+INSERT INTO composers (name, age, country)
+    VALUES ("Lin-Manuel Miranda", 43, "Puerto Rico");
+INSERT INTO composers (name, age, country)
+    VALUES ("John Kander", 96, "USA");
+INSERT INTO composers (name, age, country)
+    VALUES ("Andrew Lloyd Webber", 75, "UK");
+INSERT INTO composers (name, age, country)
+    VALUES ("Richard Rodgers", 77, "USA");
+
+/* Information pulled from each individual musical's Wikipedia page, subsection "Awards and Nominations" or "Accolades" */
+CREATE TABLE musicals
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    composer_id INTEGER,
+    year INTEGER,
+    tony_wins INTEGER);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Sweeney Todd", 1, 1979, 8);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Company", 1, 1970, 6);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Into The Woods", 1, 1987, 3);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("In The Heights", 2, 2008, 4);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Hamilton", 2, 2015, 11);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Cabaret", 3, 1966, 8);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Chicago", 3, 1975, 0);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("The Scottsboro Boys", 3, 2010, 0);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Jesus Christ Superstar", 4, 1968, 0);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Evita", 4, 1976, 7);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Cats", 4, 1981, 7);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("Oklahoma!", 5, 1943, 0);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("The King and I", 5, 1953, 5);
+INSERT INTO musicals (title, composer_id, year, tony_wins)
+    VALUES ("The Sound of Music", 5, 1959, 5);
+
+SELECT * FROM composers;
+SELECT * FROM musicals;
+SELECT musicals.title AS "Musical", composers.name AS "Composer", musicals.tony_wins AS "Tony Award Wins"
+    FROM composers
+    LEFT OUTER JOIN musicals
+    ON composers.id = musicals.composer_id ORDER BY year;
+SELECT composers.name AS "Composer", SUM(musicals.tony_wins) AS "Tony Award Wins"
+    FROM composers
+    LEFT OUTER JOIN musicals
+    ON composers.id = musicals.composer_id
+    GROUP BY composers.name ORDER BY SUM(tony_wins);
+SELECT composers.name AS "Composer", SUM(musicals.tony_wins) AS "Tony Award Wins"
+    FROM composers
+    LEFT OUTER JOIN musicals
+    ON composers.id = musicals.composer_id
+    GROUP BY composers.name HAVING SUM(tony_wins) >= 12
+    ORDER BY SUM(tony_wins) DESC;
+SELECT composers.country AS "Country", SUM(musicals.tony_wins) AS "Tony Award Wins"
+    FROM composers
+    LEFT OUTER JOIN musicals
+    ON composers.id = musicals.composer_id
+    GROUP BY composers.country;
+
+
+
